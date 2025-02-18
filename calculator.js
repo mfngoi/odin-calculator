@@ -65,15 +65,30 @@ for(i=0; i<10; i++) {
             operand2 = (operand2 * 10) + newInput;
             display.innerText = operand2;
         }
+
+        // Erase green toggle status after selecting operand2
+        for(i=0; i<4; i++) {
+            operatorArray[i].style["background-color"] = "orange";
+        }
+
     });
 }
 
 // Attach Operator Listeners
 for(i=0; i<4; i++) {
     operatorArray[i].addEventListener("click", (event) => {
-        operator = event.target.innerText;
-        console.log(event.target.innerText);
-        updateOperatorStatus();
+
+        if(operator != null) {
+            operand1 = operate(operand1, operand2, operator);
+            operand2 = 0;
+            operator = event.target.innerText;
+            updateOperatorStatus();
+            display.innerHTML=operand1;
+        } else {
+            operator = event.target.innerText;
+            console.log(event.target.innerText);
+            updateOperatorStatus();
+        }
     });
 }
 
